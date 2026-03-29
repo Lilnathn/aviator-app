@@ -1,0 +1,19 @@
+# Render Deployment Configuration
+# This file enables automatic deployment configuration on Render
+
+services:
+  - type: web
+    name: aviator-app
+    env: python
+    plan: free
+    
+    # Build and start commands
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && gunicorn app:app --workers 2 --worker-class sync --timeout 60
+    
+    # Environment is set in Render dashboard
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PORT
+        value: 10000

@@ -3,16 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVIATOR - Betting Demo</title>
+    <meta name="description" content="Aviator Betting Game - School Project Demo">
+    <meta name="keywords" content="aviator, betting, demo, school project">
+    <title>🎮 AVIATOR - Betting Demo</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/game.css">
     <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
     <div id="root"></div>
-    <script src="assets/js/api.js"></script>
-    <script src="assets/js/game.js"></script>
-    <script src="assets/js/ui.js"></script>
-    <script src="assets/js/app.js"></script>
+
+    <!-- 
+        ============================================================================
+        Configuration for API Backend
+        
+        The following script sets the API base URL. The app automatically detects
+        whether you're running locally (localhost:5000) or on Render deployment.
+        
+        OPTION 1: AUTO-DETECTION (Recommended)
+        No configuration needed. The app will automatically connect to:
+        - Local: http://localhost:5000/api
+        - Render: https://your-app.onrender.com/api
+        
+        OPTION 2: MANUAL CONFIGURATION (For testing/debugging)
+        Uncomment and update the following for your Render URL:
+        
+        <script>
+            window.CONFIG = {
+                API_BASE_URL: 'https://your-app.onrender.com/api',
+                environment: 'render'
+            };
+        </script>
+        
+        For LOCAL debugging with custom port:
+        <script>
+            window.CONFIG = {
+                API_BASE_URL: 'http://localhost:5000/api',
+                environment: 'local'
+            };
+        </script>
+        ============================================================================
+    -->
+
+    <!-- Load JavaScript modules (order matters!) -->
+    <script src="assets/js/api.js"></script>     <!-- API client -->
+    <script src="assets/js/game.js"></script>    <!-- Game engine -->
+    <script src="assets/js/ui.js"></script>      <!-- UI utilities -->
+    <script src="assets/js/app.js"></script>     <!-- Main application -->
 </body>
 </html>

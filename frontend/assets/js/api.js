@@ -3,7 +3,41 @@
  * Handles all backend communication
  */
 
-const API_BASE_URL = 'http://localhost:5000/api';
+/**
+ * Automatically detect the API base URL based on environment
+ * For Render deployment: reads from window.CONFIG.API_BASE_URL
+ * For local development: defaults to localhost:5000
+ * 
+ * Configuration:
+ * - Local dev: http://localhost:5000/api
+ * - Render: https://your-app.onrender.com/api
+ * 
+ * To use Render API:
+ * 1. Add this to index.html before loading api.js:
+ *    <script>
+ *      window.CONFIG = {
+ *        API_BASE_URL: 'https://your-app.onrender.com/api'
+ *      };
+ *    </script>
+ */
+const API_BASE_URL = (() => {
+    // Check if custom config is set
+    if (window.CONFIG && window.CONFIG.API_BASE_URL) {
+        return window.CONFIG.API_BASE_URL;
+    }
+    
+    // Auto-detect based on hostname
+    const hostname = window.location.hostname;
+    const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
+    
+    if (isLocalhost) {
+        return 'http://localhost:5000/api';
+    } else {
+        // For production: use same domain as frontend
+        const protocol = window.location.protocol;
+        return `${protocol}//${hostname}/api`;
+    }
+})();
 
 class APIClient {
     constructor() {
@@ -251,6 +285,28 @@ class APIClient {
     logout() {
         this.clearToken();
         this.clearUserInfo();
+    }
+
+    /**
+     * Configuration and health
+     */
+    getAPIConfig() {
+        return {
+            baseURL: API_BASE_URL,
+            environment: window.CONFIG?.environment || 'auto-detected',
+            isLocalhost: API_BASE_URL.includes('localhost')
+        };
+    }
+
+    async getDemoInfo() {
+        try {
+            const response = await fetch(API_BASE_URL.replace('/api', ''));
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error getting demo info:', error);
+            return null;
+        }
     }
 }
 
