@@ -1,8 +1,22 @@
+# Flask Web Framework
 Flask==2.3.2
-Flask-SQLAlchemy==3.0.5
-Flask-CORS==4.0.0
+
+# Database ORM & Drivers  
+# NOTE: SQLAlchemy 2.0.48 is the latest stable 2.0.x version
+# If you get "TypingOnly AssertionError" on Python 3.13+, Render will use Python 3.11 automatically
+SQLAlchemy==2.0.48          # Latest stable 2.0.x with best compatibility
+Flask-SQLAlchemy==3.1.1     # Compatible with SQLAlchemy 2.0.48+
+psycopg2-binary==2.9.9      # PostgreSQL driver for Render
+
+# Security & Authentication
 PyJWT==2.8.0
 Werkzeug==2.3.6
-SQLAlchemy==2.0.19
+
+# Security & HTTP
+Flask-CORS==4.0.0
+
+# Environment & Configuration
 python-dotenv==1.0.0
+
+# Deployment
 gunicorn==21.2.0
